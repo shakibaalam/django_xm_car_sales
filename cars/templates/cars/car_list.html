@@ -3,7 +3,7 @@
 {% load static %}
 <div class="d-flex flex-wrap px-5 pt-3 align-items-center">
   <div class="col-6">
-    <h1>Welcome to Django Blog</h1>
+    <h1>Welcome to Car Sales Project</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus
       dolorum delectus necessitatibus temporibus adipisci, harum enim unde,
@@ -51,7 +51,9 @@
             <img src="{{ car.image.url }}" alt="{{ car.title }}" class="img-fluid" />
             <h5 class="card-title">{{ car.title }}</h5>
             <p class="card-text">{{ car.price }}</p>
+            {% if request.user.is_authenticated %}
             <a href="{% url 'car_detail' car.id %}" class="btn btn-primary btn-sm m-2">View Details</a>
+            {% endif %}
           </div>
         </div>
       </div>
