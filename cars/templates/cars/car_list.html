@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+  <div class="col-6">
+    <h1>Welcome to Django Blog</h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatibus
+      dolorum delectus necessitatibus temporibus adipisci, harum enim unde,
+      suscipit in ipsum provident hic minima molestias reiciendis nihil veniam
+      aut doloribus, ab quidem sit cum at nemo nulla autem! Dolor quaerat ea
+      voluptatem ullam, consequuntur quisquam ut iste. Vitae exercitationem
+      ipsum blanditiis. Nihil rem in quo magni quam sapiente ad ipsa voluptatum
+      saepe quos temporibus, at iste? Eum saepe eos error ea recusandae,
+      deserunt at quidem odio harum inventore. Necessitatibus eos sapiente
+      architecto optio aut esse, facilis, voluptatibus assumenda ut
+      exercitationem nobis molestias, quisquam nam quia odio ipsa? Voluptatem
+      voluptas distinctio eaque.
+    </p>
+  </div>
+  <div class="col-6">
+    <img src="{% static 'headers.jpg' %}" />
+  </div>
+</div>
+<h1>Cars for Sale</h1>
+<div class="d-flex flex-wrap p-4">
+  <div class="col-2 bg-white p-3">
+    <h5>All Brands</h5>
+    {% for brand in brands %}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="brand" id="{{ brand.slug }}" value="{{ brand.slug }}" {% if current_brand == brand.slug %}checked{% endif %} onchange="window.location.href='{% url 'brand_wise_post' brand.slug %}'"/>
+      <label class="form-check-label" for="{{ brand.slug }}">
+        {{ brand.name }}
+      </label>
+    </div>
+    {% endfor %}
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="brand" id="all-brands" value="" {% if not current_brand %}checked{% endif %} onchange="window.location.href='{% url 'home' %}'"/>
+      <label class="form-check-label" for="all-brands">
+        All Brands
+      </label>
+    </div>
+  </div>
+  <div class="col-10 p-3">
+    <h4>{{ cars | length }} results found</h4>
+    <div class="d-flex flex-wrap pt-5">
+      {% for car in cars %}
+      <div class="col-sm-3">
+        <div class="card m-2">
+          <div class="card-body">
+            <img src="{{ car.image.url }}" alt="{{ car.title }}" class="img-fluid" />
+            <h5 class="card-title">{{ car.title }}</h5>
+            <p class="card-text">{{ car.price }}</p>
+            <a href="{% url 'car_detail' car.id %}" class="btn btn-primary btn-sm m-2">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
